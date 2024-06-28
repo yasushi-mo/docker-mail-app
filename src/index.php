@@ -21,3 +21,7 @@ try {
 } catch (PDOException $e) {
   echo 'Database connection failed'
 }
+// Display users information
+foreach ($users as $user) {
+  echo '<p>id: ' . $user['id'] . ', name: ' . $user['name'] . '</p>';
+}
