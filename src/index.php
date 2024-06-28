@@ -25,3 +25,15 @@ try {
 foreach ($users as $user) {
   echo '<p>id: ' . $user['id'] . ', name: ' . $user['name'] . '</p>';
 }
+
+// Send mail
+$subject = 'Test Mail';
+$message = 'Here is Docker Hub => https://hub.docker.com/';
+foreach ($users as $user) {
+  $success = mb_send_mail($user['email'], $subject, $message);
+  if ($success) {
+    echo '<p>Mail sent to' . $user['name'] . '</p>';
+  } else {
+    echo '<p>Mail sending failed</p>';
+  }
+}
