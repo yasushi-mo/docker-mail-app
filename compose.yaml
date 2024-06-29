@@ -1,6 +1,10 @@
 services:
   app:
     ports: -"8000:8000"
+    volumes:
+      - type: bind
+        source: ./src
+        destination: /my-work
   db:
     environment:
       - MYSQL_ROOT_PASSWORD=password
@@ -13,6 +17,9 @@ services:
       - type: volume
         source: db-compose-volume
         destination: /var/lib/mysql
+      - type: bind
+        source: ./docker/db/init
+        destination: /docker-entrypoint-initdb.d
   mail:
     environment:
       - TZ=Asia/Tokyo
