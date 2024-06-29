@@ -5,6 +5,7 @@ services:
       - type: bind
         source: ./src
         destination: /my-work
+    build: ./docker/app
   db:
     environment:
       - MYSQL_ROOT_PASSWORD=password
