@@ -1,25 +1,25 @@
 <?php
 
-$user = [];
+$users = [];
 
 try {
   // Connect to DB
   $dsn = 'mysql:host=db;port=3306;dbname=sample';
   $username = 'root';
-  $password = 'secret';
+  $password = 'password';
   $pdo = new PDO($dsn, $username, $password);
 
   // Get users table
   $statement = $pdo->query('select * from users');
   $statement->execute();
   while ($row = $statement->fetch()) {
-    $user[] = $row;
+    $users[] = $row;
   }
 
   // Disconnect
   $pdo = null;
 } catch (PDOException $e) {
-  echo 'Database connection failed'
+  echo '<p>Database connection failed: ' . $e . '</p>';
 }
 // Display users information
 foreach ($users as $user) {
@@ -32,7 +32,7 @@ $message = 'Here is Docker Hub => https://hub.docker.com/';
 foreach ($users as $user) {
   $success = mb_send_mail($user['email'], $subject, $message);
   if ($success) {
-    echo '<p>Mail sent to' . $user['name'] . '</p>';
+    echo '<p>Mail sent to ' . $user['name'] . '</p>';
   } else {
     echo '<p>Mail sending failed</p>';
   }
