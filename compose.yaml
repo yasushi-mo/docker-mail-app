@@ -1,5 +1,6 @@
 services:
   app:
+    ports: -"8000:8000"
   db:
     environment:
       - MYSQL_ROOT_PASSWORD=password
@@ -7,7 +8,9 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_DATABASE=sample
       - TZ=Asia/Tokyo
+    ports: -"3306:3306"
   mail:
     environment:
       - TZ=Asia/Tokyo
       - MP_DATABASE=/data/mailpit.db
+    ports: -"8025:8025"
