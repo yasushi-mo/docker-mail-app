@@ -9,11 +9,19 @@ services:
       - MYSQL_DATABASE=sample
       - TZ=Asia/Tokyo
     ports: -"3306:3306"
+    volumes:
+      - type: volume
+        source: db-compose-volume
+        destination: /var/lib/mysql
   mail:
     environment:
       - TZ=Asia/Tokyo
       - MP_DATABASE=/data/mailpit.db
     ports: -"8025:8025"
+    volumes:
+      - type: volume
+        source: mail-compose-volume
+        destination: /data
 volumes:
   db-compose-volume:
   mail-compose-volume:
