@@ -1,7 +1,7 @@
 services:
   app:
     ports:
-      - "${APP_HOST_MACHINE_PORT}:8000"
+      - "${APP_HOST_MACHINE_PORT:-8000}:8000"
     volumes:
       - type: bind
         source: ./src
@@ -9,13 +9,13 @@ services:
     build: ./docker/app
   db:
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:?review .env}
+      - MYSQL_USER=${DB_USER:?review .env}
+      - MYSQL_PASSWORD=${DB_PASSWORD:?review .env}
+      - MYSQL_DATABASE=${DB_DATABASE:?review .env}
       - TZ=Asia/Tokyo
     ports:
-      - "${DB_HOST_MACHINE_PORT}:3306"
+      - "${DB_HOST_MACHINE_PORT:-3306}:3306"
     volumes:
       - type: volume
         source: db-compose-volume
@@ -29,7 +29,7 @@ services:
       - TZ=Asia/Tokyo
       - MP_DATABASE=/data/mailpit.db
     ports:
-      - "${MAIL_HOST_MACHINE_PORT}:8025"
+      - "${MAIL_HOST_MACHINE_PORT:-8025}:8025"
     volumes:
       - type: volume
         source: mail-compose-volume
