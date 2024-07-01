@@ -1,5 +1,7 @@
 services:
   app:
+    environment:
+      - DEBUG=true
     ports:
       - "${APP_HOST_MACHINE_PORT:-8000}:8000"
     volumes:
